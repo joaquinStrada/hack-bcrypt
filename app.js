@@ -45,10 +45,12 @@ app.use(session({
 const auth = require('./routes/auth')
 const validateToken = require('./routes/validate-token')
 const hashes = require('./routes/hashes')
+const user = require('./routes/user')
 
 // routes middlewares
 app.use('/', auth);
 app.use('/hashes', validateToken, hashes)
+app.use('/user', validateToken, user)
 
 // archivos staticos
 app.use(express.static(__dirname + "/public"))

@@ -2,10 +2,22 @@ const express = require('express')
 const router = express.Router()
 
 router.get('/', (req, res) => {
-    res.render('hashes/index')
+    const { nombre, imagen } = req.user
+    res.render('hashes/index', {
+        user: {
+            nombre,
+            imagen
+        }
+    })
 })
 router.get('/add', (req, res) => {
-    res.send('recibido!!!')
+    const { nombre, imagen } = req.user
+    res.render('hashes/add', {
+        user: {
+            nombre,
+            imagen
+        }
+    })
 })
 
 module.exports = router
