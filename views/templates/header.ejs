@@ -5,10 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %>  - Hack Bcrypt</title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="fonts/css/all.min.css">
-    <link rel="stylesheet" href="toastr/toastr.min.css">
-</head>
+    <% if (error) { %>
+        <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../fonts/css/all.min.css">
+        <link rel="stylesheet" href="../toastr/toastr.min.css">
+    <% } else { %>
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="fonts/css/all.min.css">
+        <link rel="stylesheet" href="toastr/toastr.min.css">
+        </head>
+    <% } %>
 <body>
     <%- include('navbar', {
         page,

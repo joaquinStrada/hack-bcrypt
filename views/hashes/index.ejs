@@ -1,7 +1,8 @@
 <%- include ('../templates/header', {
     title: 'Hashes',
     page: 'hashes',
-    user
+    user,
+    error: false
 }) %> 
     
     <div class="container p-4">
@@ -33,4 +34,7 @@
           </table>
     </div>
 
-<%- include ('../templates/footer') %> 
+<%- include ('../templates/footer', {
+  error: false,
+  filejs: ''
+}) %> 

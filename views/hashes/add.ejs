@@ -1,36 +1,38 @@
 <%- include ('../templates/header', {
     title: 'Hashes',
     page: 'hashes',
-    user
+    user,
+    error: true
 }) %> 
     
     <div class="container p-4">
-        <h1 class="text-center">Hashes</h1>
-        <a href="/hashes/add" class="btn btn-success my-4" style="width: 100%;">Crear Hash</a>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Contraseña</th>
-                <th scope="col">Salt</th>
-                <th scope="col">Hash</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-            </tbody>
-          </table>
+      <form action="">
+          <h1 class="text-center">Crear Hash</h1>
+          <div class="form-group my-2">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" aria-describedby="helpNombre" autofocus>
+            <div class="form-text text-danger d-none" id="helpNombre">El nombre tiene que ser de 4 a 40 dígitos y solo puede contener letras, espacios y acentos.</div>
+          </div>
+          <div class="form-group my-2">
+            <label for="descripcion" class="form-label">Descripcion:</label>
+            <textarea name="descripcion" id="descripcion" class="form-control" cols="2" placeholder="Descripcion" aria-describedby="helpDescripcion"></textarea>
+            <div class="form-text text-danger d-none" id="helpDescripcion">El nombre tiene que ser de 4 a 200 dígitos</div>
+          </div>
+          <div class="form-group my-2">
+            <label for="pass" class="form-label">Contraseña:</label>
+            <input type="text" class="form-control" name="pass" id="pass" placeholder="Contraseña" aria-describedby="helpPass">
+            <div class="form-text text-danger d-none" id="helpPass">La contraseña tiene que ser de 8 a 20 dígitos.</div>
+          </div>
+          <div class="form-group my-2">
+            <label for="salt" class="form-label">Salt:</label>
+            <input type="number" class="form-control" name="salt" id="salt" placeholder="salt" aria-describedby="helpSalt" autofocus>
+            <div class="form-text text-danger d-none" id="helpSalt">El salt tiene que ser de 1 a 3 digitos y solo pueden ser numeros naturales.</div>
+          </div>
+          <button type="submit" class="btn btn-success my-2" style="width: 100%;"><i class="fas fa-user-plus me-2"></i>Registrarse</button>
+        </form>
     </div>
 
-<%- include ('../templates/footer') %>
+<%- include ('../templates/footer', {
+  error: true,
+  filejs: ''
+}) %>
