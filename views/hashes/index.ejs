@@ -1,40 +1,54 @@
-<%- include ('../templates/header', {
-    title: 'Hashes',
-    page: 'hashes',
-    user,
-    error: false
-}) %> 
-    
-    <div class="container p-4">
-        <h1 class="text-center">Hashes</h1>
-        <a href="/hashes/add" class="btn btn-success my-4" style="width: 100%;">Crear Hash</a>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Contraseña</th>
-                <th scope="col">Salt</th>
-                <th scope="col">Hash</th>
-                <th scope="col">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-            </tbody>
-          </table>
-    </div>
+<%- include ('../templates/header', { title: 'Hashes', page: 'hashes', user,
+error: false }) %>
 
-<%- include ('../templates/footer', {
-  error: false,
-  filejs: ''
-}) %> 
+<div class="container p-4">
+  <h1 class="text-center">Hashes</h1>
+  <a href="/hashes/add" class="btn btn-success my-4" style="width: 100%"
+    >Crear Hash</a
+  >
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripcion</th>
+        <th scope="col">Contraseña</th>
+        <th scope="col">Salt</th>
+        <th scope="col">Hash</th>
+        <th scope="col">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (arrayHashes.length > 0) { %> <% arrayHashes.forEach(Hash => { %>
+      <tr>
+        <th scope="row"><%= Hash._id %></th>
+        <td><%= Hash.nombre %></td>
+        <td><%= Hash.descripcion %></td>
+        <td><%= Hash.password %></td>
+        <td><%= Hash.salt %></td>
+        <td><%= Hash.hash %></td>
+        <td>
+          <a
+            href="/hashes/<%= Hash._id %>"
+            class="d-block btn btn-warning mb-2"
+            style="width: 100%"
+          >
+            <i class="fas fa-pen me-2"></i>
+            Editar
+          </a>
+          <button
+            class="d-block btn btn-danger"
+            data-id="<%= Hash._id %>"
+            style="width: 100%"
+          >
+          <i class="fas fa-times me-2"></i>
+          Eliminar
+        </button>
+        </td>
+      </tr>
+      <% }) %> <% } %>
+    </tbody>
+  </table>
+</div>
+
+<%- include ('../templates/footer', { error: false, filejs: '' }) %>
