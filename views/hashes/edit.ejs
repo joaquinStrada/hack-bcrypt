@@ -1,38 +1,38 @@
 <%- include ('../templates/header', {
-    title: 'Agregar Hash',
+    title: 'Editar Hash',
     page: 'hashes',
     user,
     error: true
 }) %> 
     
     <div class="container p-4">
-      <form enctype="multipart/form-data" id="formulario">
-          <h1 class="text-center">Crear Hash</h1>
+      <form enctype="multipart/form-data" data-id="<%= hash._id %>" id="formulario">
+          <h1 class="text-center">Editar Hash</h1> 
           <div class="form-group my-2">
             <label for="nombre" class="form-label">Nombre:</label>
-            <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre" aria-describedby="helpNombre" autofocus>
+            <input type="text" class="form-control" name="nombre" id="nombre" value="<%= hash.nombre %>" placeholder="Nombre" aria-describedby="helpNombre" autofocus>
             <div class="form-text text-danger d-none" id="helpNombre">El nombre tiene que ser de 4 a 40 dígitos y solo puede contener letras, espacios y acentos.</div>
           </div>
           <div class="form-group my-2">
             <label for="descripcion" class="form-label">Descripcion:</label>
-            <textarea name="descripcion" id="descripcion" class="form-control" cols="2" placeholder="Descripcion" aria-describedby="helpDescripcion"></textarea>
+            <textarea name="descripcion" id="descripcion" class="form-control" cols="2" placeholder="Descripcion" aria-describedby="helpDescripcion"><%= hash.descripcion %></textarea>
             <div class="form-text text-danger d-none" id="helpDescripcion">La descripcion tiene que ser de 4 a 200 dígitos</div>
           </div>
           <div class="form-group my-2">
             <label for="password" class="form-label">Contraseña:</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" aria-describedby="helpPassword">
+            <input type="password" class="form-control" name="password" id="password" value="<%= hash.password %>" placeholder="Contraseña" aria-describedby="helpPassword">
             <div class="form-text text-danger d-none" id="helpPassword">La contraseña tiene que ser de 8 a 20 dígitos.</div>
           </div>
           <div class="form-group my-2">
             <label for="salt" class="form-label">Salt:</label>
-            <input type="text" class="form-control" name="salt" id="salt" placeholder="salt" aria-describedby="helpSalt" autofocus>
+            <input type="text" class="form-control" name="salt" id="salt" value="<%= hash.salt %>" placeholder="salt" aria-describedby="helpSalt" autofocus>
             <div class="form-text text-danger d-none" id="helpSalt">El salt tiene que ser de 1 a 3 digitos y solo pueden ser numeros naturales.</div>
           </div>
-          <button type="submit" class="btn btn-success my-2" style="width: 100%;"><i class="fas fa-plus me-2"></i>Crear Hash</button>
+          <button type="submit" class="btn btn-warning my-2" style="width: 100%;"><i class="fas fa-pen me-2"></i>Editar</button>
         </form>
     </div>
 
 <%- include ('../templates/footer', {
   error: true,
-  filejs: 'hashes/add.js'
+  filejs: 'hashes/edit.js'
 }) %>

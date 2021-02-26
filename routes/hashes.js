@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
     const arrayHashes = await HashDB.find({
         id_user: req.user.id
     })
-    console.log(arrayHashes);
+
     res.render('hashes/index', {
         user: {
             nombre,
@@ -79,5 +79,97 @@ router.post('/add', async (req, res) => {
         })
     }
 })
+router.delete('/:id', async (req, res) => {
+    const { id } = req.params
+    
+    try {
+        const hashdelete = await HashDB.findByIdAndDelete({
+            _id: id
+        })
 
+        if (hashdelete) {
+            res.json({
+                error: false,
+                mensaje: 'Eliminado!'
+            })
+        } else {
+            res.json({
+                error: true,
+                mensaje: 'No se puede eliminar'
+            }) 
+        }
+    } catch (err) {
+        res.json({
+            error: true,
+            mensaje: err
+        })
+    }
+})
+router.get('/:id', async (req, res) => {
+    const { id } = req.params
+    const { nombre, imagen } = req.user
+    
+    try {
+        const hash = await HashDB.findOne({
+            _id: id,
+            id_user: req.user.id
+        })
+
+        res.render('hashes/edit', {
+            user: {
+                nombre,
+                imagen
+            },
+            hash
+        })
+    } catch (err) {
+        console.log(err);
+    }
+})
+router.put('/:id', async (req, res) => {
+    const { id } = req.params
+    const { nombre, descripcion, password, salt } = req.body
+
+    // validamos que nos hayan enviado todos los campos
+    const { error } = schemaAdd.validate(req.body)
+    if (error) {
+        return res.json({
+            error: true,
+            mensaje: error.details[0].message
+        })
+    }
+
+    try {
+        // generamos el nuevo hash
+        const saltInt = parseInt(salt)
+        const saltHash = await bcrypt.genSalt(saltInt)
+        const hash = await bcrypt.hash(password, saltHash)
+
+        // actualizamos el hash
+        const body = {
+            nombre,
+            descripcion,
+            password,
+            salt: saltInt,
+            hash,
+            id_user: req.user.id
+        }
+
+        await HashDB.findByIdAndUpdate(id, body, {
+            useFindAndModify: false
+        })
+        
+        res.json({
+            error: false,
+            mensaje: 'hash editado satisfactoriamente'
+        })
+        
+    } catch (err) {
+        console.log(err);
+        res.json({
+            error: true,
+            mensaje: err
+        })
+    }
+})
 module.exports = router
